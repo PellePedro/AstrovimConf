@@ -1,20 +1,13 @@
 local get_icon = require("astronvim.utils").get_icon
 
 return {
-  { "goolord/alpha-nvim", enabled = false },
-  { "max397574/better-escape.nvim", enabled = false },
+  { "goolord/alpha-nvim",                  enabled = false },
+  { "max397574/better-escape.nvim",        enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = true },
   {
     "akinsho/toggleterm.nvim",
     opts = {
       terminal_mappings = false,
-    },
-  },
-  {
-    "rcarriga/nvim-notify",
-    enabled = true,
-    opts = {
-      timeout = 0,
     },
   },
   {
@@ -37,7 +30,7 @@ return {
       source_selector = {
         sources = {
           { source = "filesystem", display_name = get_icon "FolderClosed" .. " File" },
-          { source = "remote", display_name = "󰒍 Remote" },
+          { source = "remote",     display_name = "󰒍 Remote" },
           { source = "git_status", display_name = get_icon "Git" .. " Git" },
         },
       },

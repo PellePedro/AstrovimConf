@@ -12,5 +12,6 @@ return {
   },
   g = {
     resession_enabled = true,
+    ui_notifications_enabled = false,
   },
 }

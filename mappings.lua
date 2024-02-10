@@ -8,6 +8,7 @@ local mappings = {
 	n = {
 		-- alt leader
 		["\\"] = "",
+		["-"] = { "<cmd>Oil<cr>", desc = "Edit Files" },
 		["\\1"] = { "<cmd>AerialToggle<cr>", desc = "Show Outline" },
 		["\\2"] = { "<cmd>Telescope buffers<cr>", desc = "Buffers" },
 		["\\q"] = { [[<cmd>:Telescope aerial<CR>]], desc = "Telescope Symbols" },
@@ -22,14 +23,6 @@ local mappings = {
 			desc = "Search <cword>",
 		},
 		["m"] = { desc = "  Bookmarks" },
-		["mm"] = { [[<cmd>BookmarkToggle<cr>]], desc = "Toggle Bookmark" },
-		["mf"] = { [[<cmd>FilemarkToggle<cr>]], desc = "Toggle Filemark" },
-		["mj"] = { [[<cmd>BookmarkPrev<cr>]], desc = "Prev Bookmark" },
-		["mk"] = { [[<cmd>BookmarkNext<cr>]], desc = "Next Bookmark" },
-		["mh"] = { [[<cmd>FilemarkPrev<cr>]], desc = "Prev Bookmark" },
-		["ml"] = { [[<cmd>FilemarkNext<cr>]], desc = "Next Bookmark" },
-		["mb"] = { [[<cmd>Telescope bookmarks<cr>]], desc = "List filemarks" },
-		["mt"] = { [[<cmd>Telescope filemarks<cr>]], desc = "List filemarks" },
 		-- disable default bindings
 
 		["<C-Down>"] = false,
@@ -118,7 +111,7 @@ local mappings = {
 		},
 		-- telescope plugin mappings
 		["<leader>fB"] = { "<cmd>Telescope bibtex<cr>", desc = "Find BibTeX" },
-		["<leader>fe"] = { "<cmd>Telescope file_browser<cr>", desc = "File explorer" },
+		["<leader>fe"] = { "<cmd>Oil<cr>", desc = "File explorer" },
 		["<leader>fp"] = {
 			function()
 				require("telescope").extensions.projects.projects({})
@@ -128,79 +121,6 @@ local mappings = {
 		["<leader>fT"] = { "<cmd>TodoTelescope<cr>", desc = "Find TODOs" },
 		-- octo plugin mappings
 		["<leader>G"] = { name = " GitHub" },
-		["<leader>Gi"] = { "<cmd>Octo issue list<cr>", desc = "Open Issues" },
-		["<leader>GI"] = { "<cmd>Octo issue search<cr>", desc = "Search Issues" },
-		["<leader>Gp"] = { "<cmd>Octo pr list<cr>", desc = "Open PRs" },
-		["<leader>GP"] = { "<cmd>Octo pr search<cr>", desc = "Search PRs" },
-		["<leader>Gr"] = { "<cmd>Octo repo list<cr>", desc = "Open Repository" },
-		-- compiler
-		["<leader>m"] = { desc = "󱁤 Compiler" },
-		["<leader>mk"] = {
-			function()
-				vim.cmd("silent! write")
-				local filename = vim.fn.expand("%:t")
-				utils.async_run({ "compiler", vim.fn.expand("%:p") }, function()
-					astro_utils.notify("Compiled " .. filename)
-				end)
-			end,
-			desc = "Compile",
-		},
-		["<leader>ma"] = {
-			function()
-				vim.notify("Autocompile Started")
-				utils.async_run({ "autocomp", vim.fn.expand("%:p") }, function()
-					astro_utils.notify("Autocompile stopped")
-				end)
-			end,
-			desc = "Auto Compile",
-		},
-		["<leader>mv"] = {
-			function()
-				vim.fn.jobstart({ "opout", vim.fn.expand("%:p") })
-			end,
-			desc = "View Output",
-		},
-		["<leader>mb"] = {
-			function()
-				local filename = vim.fn.expand("%:t")
-				utils.async_run({
-					"pandoc",
-					vim.fn.expand("%"),
-					"--pdf-engine=xelatex",
-					"--variable",
-					"urlcolor=blue",
-					"-t",
-					"beamer",
-					"-o",
-					vim.fn.expand("%:r") .. ".pdf",
-				}, function()
-					astro_utils.notify("Compiled " .. filename)
-				end)
-			end,
-			desc = "Compile Beamer",
-		},
-		["<leader>mp"] = {
-			function()
-				local pdf_path = vim.fn.expand("%:r") .. ".pdf"
-				if vim.fn.filereadable(pdf_path) == 1 then
-					vim.fn.jobstart({ "pdfpc", pdf_path })
-				end
-			end,
-			desc = "Present Output",
-		},
-		["<leader>ml"] = {
-			function()
-				utils.toggle_qf()
-			end,
-			desc = "Logs",
-		},
-		["<leader>mt"] = { "<cmd>TexlabBuild<cr>", desc = "LaTeX" },
-		["<leader>mf"] = { "<cmd>TexlabForward<cr>", desc = "Forward Search" },
-		["<leader>r"] = { desc = " REPL" },
-		["<leader>rr"] = { "<Plug>Send", desc = "Send to REPL" },
-		["<leader>rl"] = { "<Plug>SendLine", desc = "Send line to REPL" },
-		["<leader>r<cr>"] = { "<cmd>SendHere<cr>", desc = "Set REPL" },
-		["<leader>z"] = { "<cmd>ZenMode<cr>", desc = "Zen Mode" },
 		["<leader>s"] = { desc = "󰛔 Search/Replace" },
 		["<leader>ss"] = {
 			function()
